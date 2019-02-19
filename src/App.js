@@ -5,12 +5,12 @@ const App = () => {
   const PHI = (1 + Math.sqrt(5)) / 2;
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
-  const maxRadius = width < height ? width : height;
+  const maxRadius = width < height ? width * 2 : height * 2;
   const pixelRatio = window.devicePixelRatio;
   const dw = Math.floor(pixelRatio * width);
   const dh = Math.floor(pixelRatio * height);
   const canvas = useRef(null);
-  const style = { width, height, backgroundColor: "hsl(30, 100%, 98%)" };
+  const style = { width, height, backgroundColor: "hsl(0, 100%, 5%)" };
 
   const onResize = () => {
     setWidth(window.innerWidth);
@@ -29,6 +29,10 @@ const App = () => {
     let quadrant = 1;
     while (radius < maxRadius) {
       ctx.beginPath();
+      ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = "hsla(30, 100%, 50%, 0.5";
+      ctx.stroke();
+      ctx.beginPath();
       ctx.arc(
         center.x,
         center.y,
@@ -36,6 +40,7 @@ const App = () => {
         Math.PI * (0.5 * (quadrant - 1)),
         Math.PI * 0.5 * quadrant
       );
+      ctx.strokeStyle = "hsl(60, 100%, 50%)";
       ctx.stroke();
       switch (quadrant) {
         case 1:
